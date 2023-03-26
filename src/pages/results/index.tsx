@@ -1,9 +1,24 @@
-import React from "react";
+import { NextPageContext } from "next";
 
-type Props = {};
-
-const results = (props: Props) => {
-  return <div>results</div>;
+type Image = {
+  name: string;
+  url: string;
 };
 
-export default results;
+type ResultsProps = {
+  images: Image[];
+};
+
+function Results({ images }: ResultsProps) {
+  return <div></div>;
+}
+
+Results.getInitialProps = async (ctx: NextPageContext) => {
+  const { images } = ctx.query;
+
+  return {
+    images: images ? JSON.parse(images as string) : [],
+  };
+};
+
+export default Results;
