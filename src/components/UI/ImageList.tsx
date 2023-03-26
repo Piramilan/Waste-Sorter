@@ -1,25 +1,12 @@
+import { ImageListProps, UploadedImage } from "@/types/types";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-
-type UploadedImage = {
-  name: string;
-  url: string;
-  predictions: ClassPrediction[];
-};
-type ClassPrediction = {
-  className: string;
-  probability: number | string;
-};
-type ImageListProps = {
-  images: UploadedImage[];
-};
 
 const ImageList: React.FC<ImageListProps> = ({ images }) => {
   const [predictionImages, setPredictionImages] = useState<UploadedImage[]>([]);
   useEffect(() => {
     setPredictionImages(images);
   }, [images]);
-
   return (
     <div className="grid  grid-cols-1 lg:grid-cols-3 gap-6">
       {predictionImages?.map((image, index) => (
@@ -34,7 +21,6 @@ const ImageList: React.FC<ImageListProps> = ({ images }) => {
                 alt={image.name}
                 width={400}
                 height={400}
-                id="image"
               />
               <div className="flex items-center absolute bottom-0 justify-center">
                 <p className="text-lg font-bold">
