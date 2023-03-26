@@ -1,26 +1,19 @@
 import { useEffect, useState } from "react";
-import TextButton from "./UI/TextButton";
 import ImageUploadInput from "./UI/ImageUploadInput";
 import ImageList from "./UI/ImageList";
 import * as tmImage from "@teachablemachine/image";
-
-type UploadedImage = {
-  name: string;
-  url: string;
-  predictions: ClassPrediction[];
-};
-
-type ClassPrediction = {
-  className: string;
-  probability: number | string;
-};
+import { config } from "@/config/config";
+import { ClassPrediction, UploadedImage } from "@/types/types";
 
 export default function ImageUploader() {
   const [images, setImages] = useState<UploadedImage[]>([]);
   const [model, setModel] = useState<tmImage.CustomMobileNet | null>(null);
   const [imageUploaded, setImageUploaded] = useState(false);
 
-  const predictImage = async (image: UploadedImage, index: number) => {
+  const predictImage = async (image: UploadedImage) => {
+    const model = await tmImage.load(config.modelURL, config.metadataURL);
+    setModel(model);
+
     if (!model) return;
     const img = document.createElement("img");
     img.src = image?.url;
@@ -37,28 +30,16 @@ export default function ImageUploader() {
     }));
     const updatedImage = { ...image, predictions: predictionData };
     setImages((prevImages) => [updatedImage, ...prevImages]);
+    setImageUploaded(false);
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setImageUploaded(true);
     const files = event.target.files;
     if (files && files.length > 0) {
       const fileArray: File[] = Array.from(files);
       const readerArray: FileReader[] = [];
-      const imageArray: UploadedImage[] = [];
 
-      // fileArray.forEach((file, index) => {
-      //   const reader = new FileReader();
-      //   reader.onloadend = () => {
-      //     imageArray.push({
-      //       name: file.name,
-      //       url: reader.result as string,
-      //       predictions: [],
-      //     });
-      //     setImages((prevImages) => [...imageArray, ...prevImages]);
-      //   };
-      //   reader.readAsDataURL(file);
-      //   readerArray.push(reader);
-      // });
       fileArray.forEach((file, index) => {
         const reader = new FileReader();
         reader.onloadend = () => {
@@ -67,50 +48,13 @@ export default function ImageUploader() {
             url: reader.result as string,
             predictions: [],
           };
-          predictImage(imageArray, images.length + index);
-          // setImages((prevImages) => [...prevImages, imageArray]);
+          predictImage(imageArray);
         };
         reader.readAsDataURL(file);
         readerArray.push(reader);
       });
     }
-    setImageUploaded(true);
   };
-  useEffect(() => {
-    const loadModel = async () => {
-      const modelURL =
-        "https://teachablemachine.withgoogle.com/models/oaWWByFbS/model.json";
-      const metadataURL =
-        "https://teachablemachine.withgoogle.com/models/oaWWByFbS/metadata.json";
-      const model = await tmImage.load(modelURL, metadataURL);
-      setModel(model);
-    };
-    loadModel();
-  }, []);
-
-  // useEffect(() => {
-  //   const predictImage = async (image: UploadedImage) => {
-  //     if (!model) return;
-  //     const img = document.createElement("img");
-  //     img.src = image?.url;
-  //     await img.decode();
-
-  //     const predictions = await model.predict(img);
-  //     const predictionData: ClassPrediction[] = predictions.map((p) => ({
-  //       className: p.className,
-  //       probability: p.probability.toFixed(2),
-  //     }));
-  //     const updatedImages = images.map((img) =>
-  //       img.name === image.name ? { ...img, predictions: predictionData } : img
-  //     );
-  //     setImages(updatedImages);
-  //   };
-
-  //   if (imageUploaded) {
-  //     // images.forEach((image) => predictImage(image));
-  //     setImageUploaded(false);
-  //   }
-  // }, [imageUploaded]);
 
   return (
     <div className="max-w-[80vw] mx-auto">
@@ -120,6 +64,13 @@ export default function ImageUploader() {
       <div>
         <div className="flex justify-center items-center my-8">
           <ImageUploadInput handleImageUpload={handleImageChange} />
+        </div>
+        <div
+          className={`flex justify-center items-center ${
+            imageUploaded && "my-14"
+          }`}
+        >
+          {imageUploaded && <div className="borders" />}
         </div>
         <ImageList images={images} />
       </div>
