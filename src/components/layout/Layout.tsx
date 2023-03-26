@@ -12,7 +12,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   React.useEffect(() => {
     const timeoutId = setTimeout(() => {
       setLoading(true);
-    }, 2000);
+    }, 1500);
 
     return () => clearTimeout(timeoutId);
   }, []);

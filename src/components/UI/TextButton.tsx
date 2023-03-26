@@ -12,8 +12,8 @@ const TextButton = ({ children, link }: Props) => {
       <button
         className="bg-gradient-to-b
                    from-blue-500 to-blue-600
-                   px-10 py-4
-                   text-2xl
+                   px-6 py-3
+                   text-[1rem]
                    m-5 border-none 
                     text-white 
                    cursor-pointer

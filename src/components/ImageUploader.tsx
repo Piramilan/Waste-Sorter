@@ -1,82 +1,127 @@
-import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TextButton from "./UI/TextButton";
+import ImageUploadInput from "./UI/ImageUploadInput";
+import ImageList from "./UI/ImageList";
+import * as tmImage from "@teachablemachine/image";
+
+type UploadedImage = {
+  name: string;
+  url: string;
+  predictions: ClassPrediction[];
+};
+
+type ClassPrediction = {
+  className: string;
+  probability: number | string;
+};
 
 export default function ImageUploader() {
-  const [images, setImages] = useState<(string | ArrayBuffer | null)[]>([]);
+  const [images, setImages] = useState<UploadedImage[]>([]);
+  const [model, setModel] = useState<tmImage.CustomMobileNet | null>(null);
+  const [imageUploaded, setImageUploaded] = useState(false);
+
+  const predictImage = async (image: UploadedImage, index: number) => {
+    if (!model) return;
+    const img = document.createElement("img");
+    img.src = image?.url;
+    await img.decode();
+
+    const predictions = await model.predict(img);
+    const maxFloatValue = Math.max(
+      ...predictions.map((obj) => obj.probability)
+    );
+
+    const predictionData: ClassPrediction[] = predictions.map((p) => ({
+      className: p.className,
+      probability: p.probability === maxFloatValue ? p.probability : 0,
+    }));
+    const updatedImage = { ...image, predictions: predictionData };
+    setImages((prevImages) => [updatedImage, ...prevImages]);
+  };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files && files.length > 0) {
       const fileArray: File[] = Array.from(files);
       const readerArray: FileReader[] = [];
-      const imageArray: (string | ArrayBuffer | null)[] = [...images];
+      const imageArray: UploadedImage[] = [];
 
+      // fileArray.forEach((file, index) => {
+      //   const reader = new FileReader();
+      //   reader.onloadend = () => {
+      //     imageArray.push({
+      //       name: file.name,
+      //       url: reader.result as string,
+      //       predictions: [],
+      //     });
+      //     setImages((prevImages) => [...imageArray, ...prevImages]);
+      //   };
+      //   reader.readAsDataURL(file);
+      //   readerArray.push(reader);
+      // });
       fileArray.forEach((file, index) => {
         const reader = new FileReader();
         reader.onloadend = () => {
-          imageArray.push(reader.result);
-          setImages((prevImages) => [reader.result, ...prevImages]);
+          const imageArray = {
+            name: file.name,
+            url: reader.result as string,
+            predictions: [],
+          };
+          predictImage(imageArray, images.length + index);
+          // setImages((prevImages) => [...prevImages, imageArray]);
         };
         reader.readAsDataURL(file);
         readerArray.push(reader);
       });
     }
+    setImageUploaded(true);
   };
+  useEffect(() => {
+    const loadModel = async () => {
+      const modelURL =
+        "https://teachablemachine.withgoogle.com/models/oaWWByFbS/model.json";
+      const metadataURL =
+        "https://teachablemachine.withgoogle.com/models/oaWWByFbS/metadata.json";
+      const model = await tmImage.load(modelURL, metadataURL);
+      setModel(model);
+    };
+    loadModel();
+  }, []);
+
+  // useEffect(() => {
+  //   const predictImage = async (image: UploadedImage) => {
+  //     if (!model) return;
+  //     const img = document.createElement("img");
+  //     img.src = image?.url;
+  //     await img.decode();
+
+  //     const predictions = await model.predict(img);
+  //     const predictionData: ClassPrediction[] = predictions.map((p) => ({
+  //       className: p.className,
+  //       probability: p.probability.toFixed(2),
+  //     }));
+  //     const updatedImages = images.map((img) =>
+  //       img.name === image.name ? { ...img, predictions: predictionData } : img
+  //     );
+  //     setImages(updatedImages);
+  //   };
+
+  //   if (imageUploaded) {
+  //     // images.forEach((image) => predictImage(image));
+  //     setImageUploaded(false);
+  //   }
+  // }, [imageUploaded]);
 
   return (
     <div className="max-w-[80vw] mx-auto">
       <h1 className="text-white font-semibold text-[1.75rem] leading-tight lg:text-5xl text-center">
         Classify Your Waste as Organic or Recyclable with Machine Learning
       </h1>
-
       <div>
         <div className="flex justify-center items-center my-8">
-          <input
-            type="file"
-            multiple
-            accept="image/*"
-            required
-            onChange={handleImageChange}
-            className="file:bg-gradient-to-b
-                   file:from-blue-500 file:to-blue-600
-                   file:px-6 file:py-3
-                   file:m-5 file:border-none 
-                   file:rounded-full file:text-white 
-                   file:cursor-pointer file:shadow-lg 
-                   file:shadow-blue-600
-font-bold
-                   file:active:scale-90 file:transition file:duration-150
-                   
-                   px-2
-                   bg-gradient-to-br from-gray-600 to-gray-700
-                   text-white/80 rounded-full cursor-pointer shadow-xl shadow-gray-700/60"
-          />
+          <ImageUploadInput handleImageUpload={handleImageChange} />
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {images.map((image, index) => (
-            <div
-              key={index}
-              className="flex items-center  justify-center bg-gray-100 border border-gray-300"
-            >
-              {image && (
-                <Image
-                  src={image.toString()}
-                  alt="Uploaded Image"
-                  width={400}
-                  height={400}
-                />
-              )}
-            </div>
-          ))}
-        </div>
-        {images.length > 0 && (
-          <div className="flex justify-center items-center mt-4">
-            <TextButton link={`/results?images=${JSON.stringify(images)}`}>
-              Predicte It
-            </TextButton>
-          </div>
-        )}
+        <ImageList images={images} />
       </div>
     </div>
   );
