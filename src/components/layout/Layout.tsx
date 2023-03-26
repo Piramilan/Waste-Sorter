@@ -23,12 +23,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <Loading />
       ) : (
         <div
-          className={`bg-[#0f172a] min-h-screen ${
+          className={`bg-[#0f172a] flex flex-col min-h-screen ${
             router.pathname === "/" && "fade-in"
           }`}
         >
           <Header />
-          <main className="my-8 min-h-[82vh]">{children}</main>
+          <main className="flex-grow my-8">{children}</main>
           <Footer />
         </div>
       )}
