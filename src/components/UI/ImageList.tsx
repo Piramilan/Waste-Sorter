@@ -26,14 +26,14 @@ const ImageList: React.FC<ImageListProps> = ({ images }) => {
     setPredictionImages(images);
   }, [images]);
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
       {predictionImages && predictionImages.length >= 2 && isMobile ? (
         <Carousel images={predictionImages} />
       ) : (
         predictionImages?.map((image, index) => (
           <div
             key={index}
-            className="flex relative flex-col items-center pb-8 bg-[#0f172a] justify-center border border-gray-300"
+            className="flex relative flex-col items-center pb-8 bg-[#0f172a] justify-center border border-gray-300 active:scale-90 transition duration-150"
           >
             {image && (
               <>

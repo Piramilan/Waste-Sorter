@@ -21,7 +21,7 @@ const ImageUploadInput = ({ handleImageUpload }: ImageUploadProps) => {
                  file:cursor-pointer file:shadow-lg 
              file:shadow-blue-600 font-bold
                  file:active:scale-90 file:transition file:duration-150
-                 px-2
+                 px-2 
                  bg-gradient-to-br from-gray-600 to-gray-700
                  text-white/80 rounded-full cursor-pointer shadow-xl shadow-gray-700/60"
     />

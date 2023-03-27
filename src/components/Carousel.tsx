@@ -23,7 +23,7 @@ const Carousel: React.FC<ImageListProps> = ({ images }) => {
         <Splide options={options}>
           {images.map((image, index) => (
             <SplideSlide key={index}>
-              <div className="flex cursor-pointer relative h-[100%] max-w-[90vw] mx-auto flex-col items-center pb-8 bg-[#0f172a] justify-center border border-gray-300">
+              <div className="flex cursor-pointer relative h-[100%] max-w-[90vw] mx-auto flex-col items-center pb-8 bg-[#0f172a] justify-center border border-gray-300 active:scale-90 transition duration-150">
                 {image && (
                   <>
                     <Image
