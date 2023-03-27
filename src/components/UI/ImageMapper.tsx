@@ -10,7 +10,7 @@ const ImageMapper = ({ image, index }: Props) => {
   return (
     <div
       key={index}
-      className="flex relative flex-col items-center pb-8 bg-[#0f172a] justify-center border border-gray-300"
+      className="flex relative flex-col items-center pb-8 bg-primary justify-center border border-gray-300"
     >
       {image && (
         <>

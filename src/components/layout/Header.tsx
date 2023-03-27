@@ -5,7 +5,7 @@ import { FaGithubSquare } from "react-icons/fa";
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 bg-[#0f172a] shadow-xl border-b-[1px] border-[#4b5563]">
+    <header className="sticky top-0 z-50 bg-primary shadow-xl border-b-[1px] border-[#4b5563]">
       <div className="layout flex h-14 lg:h-16 items-center justify-between max-w-[90vw] lg:max-w-[80vw] mx-auto">
         <UnstyledLink href="/" className="flex font-bold hover:text-gray-600">
           <div className="flex justify-center items-center text-white text-xl mx-2">

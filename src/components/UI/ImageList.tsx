@@ -2,6 +2,7 @@ import { ImageListProps, UploadedImage } from "@/types/types";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Carousel from "../Carousel";
+import { classNames } from "@/config/config";
 
 const ImageList: React.FC<ImageListProps> = ({ images }) => {
   const [predictionImages, setPredictionImages] = useState<UploadedImage[]>([]);
@@ -33,7 +34,7 @@ const ImageList: React.FC<ImageListProps> = ({ images }) => {
         predictionImages?.map((image, index) => (
           <div
             key={index}
-            className="flex relative flex-col items-center pb-8 bg-[#0f172a] justify-center border border-gray-300 active:scale-90 transition duration-150"
+            className="flex relative flex-col items-center pb-8 bg-primary justify-center border border-gray-300 active:scale-90 transition duration-150"
           >
             {image && (
               <>
@@ -44,15 +45,26 @@ const ImageList: React.FC<ImageListProps> = ({ images }) => {
                   height={400}
                   className="max-h-[250px] object-contain"
                 />
-                <div className="flex items-center absolute bottom-0 justify-center">
-                  <p className="text-lg font-bold">
-                    {image.predictions.map((item, index) => (
-                      <span key={index} className="text-[#fff]">
-                        {item.probability !== 0 && `${item.className} Waste`}
-                      </span>
-                    ))}
-                  </p>
-                </div>
+                {image.predictions.map((item, index) => {
+                  if (item.probability !== 0) {
+                    return (
+                      <div
+                        className={`flex items-center absolute bottom-0 justify-center ${
+                          item.className === classNames.ORGANIC_WASTE
+                            ? "bg-organic"
+                            : "bg-recyclable"
+                        } w-full`}
+                        key={index}
+                      >
+                        <p className="text-lg font-bold">
+                          <span className="text-[#fff]">
+                            {item.className} Waste
+                          </span>
+                        </p>
+                      </div>
+                    );
+                  }
+                })}
               </>
             )}
           </div>

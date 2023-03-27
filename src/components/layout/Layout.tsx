@@ -23,7 +23,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <Loading />
       ) : (
         <div
-          className={`bg-[#0f172a] flex flex-col min-h-screen ${
+          className={`bg-primary flex flex-col min-h-screen ${
             router.pathname === "/" && "fade-in"
           }`}
         >
