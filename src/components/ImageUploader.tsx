@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ImageUploadInput from "./UI/ImageUploadInput";
 import ImageList from "./UI/ImageList";
 import * as tmImage from "@teachablemachine/image";
@@ -20,6 +20,7 @@ export default function ImageUploader() {
     await img.decode();
 
     const predictions = await model.predict(img);
+
     const maxFloatValue = Math.max(
       ...predictions.map((obj) => obj.probability)
     );
@@ -62,8 +63,11 @@ export default function ImageUploader() {
         Classify Your Waste as Organic or Recyclable with Machine Learning
       </h1>
       <div>
-        <div className="flex justify-center items-center my-8">
+        <div className="flex flex-col justify-center items-center my-8">
           <ImageUploadInput handleImageUpload={handleImageChange} />
+          <p className="text-xs text-gray-500 mt-4 text-center">
+            We do not save your images. Your privacy is important to us.
+          </p>
         </div>
         <div
           className={`flex justify-center items-center ${
