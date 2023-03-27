@@ -34,9 +34,9 @@ export default function ImageUploader() {
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setImageUploaded(true);
     const files = event.target.files;
     if (files && files.length > 0) {
+      setImageUploaded(true);
       const fileArray: File[] = Array.from(files);
       const readerArray: FileReader[] = [];
 

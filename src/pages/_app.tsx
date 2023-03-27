@@ -1,6 +1,7 @@
 import Layout from "@/components/layout/Layout";
 import "@/styles/globals.css";
 import "@/styles/animation.css";
+// import "@/styles/carousels.css";
 import type { AppProps } from "next/app";
 
 export default function App({ Component, pageProps }: AppProps) {

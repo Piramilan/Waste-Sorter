@@ -1,0 +1,43 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #f4f0fa;
+  color: #f9f9f9;
+  font-family: Poppins;
+}
+
+:root {
+  --height: 420px;
+}
+
+/* .wrapper {
+  position: relative;
+  height: var(--height);
+  margin-top: 30px;
+  overflow-x: hidden;
+} */
+
+/* .splide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(125vw + 30px);
+} */
+
+.slide {
+  padding: 0 0 0 30px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background: #8f44fd;
+  height: var(--height);
+  /* padding: 60px 40px; */
+}
