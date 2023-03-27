@@ -1,3 +1,57 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.my-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.my-page {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0 0.5rem;
+  border-radius: 50%;
+  background-color: #c4c4c4;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* .my-page:hover {
+  background-color: #fff;
+}
+
+.my-active-page {
+  background-color: #fff;
+} */
+
+/* Custom styles for Splide arrows */
+/* .splide__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+} */
+
+/* .splide__arrow:hover {
+  background-color: #fff;
+}
+.splide__arrow {
+  font-size: 1rem;
+  color: #333;
+}
+
+.splide__arrow:hover {
+  cursor: pointer;
+  color: #666;
+} */

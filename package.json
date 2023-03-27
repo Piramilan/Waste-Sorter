@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@splidejs/react-splide": "^0.7.12",
     "@teachablemachine/image": "^0.8.5",
     "@types/node": "18.15.9",
     "@types/react": "18.0.29",
