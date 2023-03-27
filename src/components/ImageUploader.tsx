@@ -58,12 +58,12 @@ export default function ImageUploader() {
   };
 
   return (
-    <div className="max-w-[80vw] mx-auto">
+    <div className="max-w-[90vw] lg:max-w-[80vw] mx-auto">
       <h1 className="text-white font-semibold text-[1.75rem] leading-tight lg:text-5xl text-center">
         Classify Your Waste as Organic or Recyclable with Machine Learning
       </h1>
       <div>
-        <div className="flex flex-col justify-center items-center my-8">
+        <div className="flex flex-col justify-center items-center my-8 lg:my-14">
           <ImageUploadInput handleImageUpload={handleImageChange} />
           <p className="text-xs text-gray-500 mt-4 text-center">
             We do not save your images. Your privacy is important to us.
