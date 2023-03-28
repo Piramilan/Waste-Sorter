@@ -59,7 +59,7 @@ export default function ImageUploader() {
         Classify Your Waste as Organic or Recyclable with Machine Learning
       </h1>
       <div>
-        <div className="flex flex-col justify-center items-center mb-14 my-10">
+        <div className="flex flex-col justify-center items-center mb-12 my-10">
           <ImageUploadInput handleImageUpload={handleImageChange} />
           <p className="text-xs text-gray-500 mt-4 text-center">
             We do not save your images. Your privacy is important to us.
