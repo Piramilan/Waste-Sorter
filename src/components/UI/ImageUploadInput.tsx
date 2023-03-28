@@ -18,8 +18,6 @@ const ImageUploadInput = ({ handleImageUpload }: ImageUploadProps) => {
         file:text-sm file:font-semibold
         file:cursor-pointer
         file:bg-primary file:text-white
-        hover:file:bg-violet-200
-        hover:file:text-primary
         file:active:scale-90 file:transition file:duration-150
         cursor-pointer
     "

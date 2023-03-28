@@ -20,7 +20,7 @@ export default function Header() {
           </div>
         </UnstyledLink>
         <UnstyledLink href="https://github.com/Piramilan">
-          <FaGithubSquare className="text-4xl text-white" />
+          <FaGithubSquare className="text-4xl text-white animate-pulse" />
         </UnstyledLink>
       </div>
     </header>

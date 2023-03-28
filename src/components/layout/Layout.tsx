@@ -4,22 +4,15 @@ import * as React from "react";
 import Footer from "./Footer";
 import Header from "./Header";
 import Loading from "@/components/UI/Loading";
+import { useModel } from "@/lib/ModelContext";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const [loading, setLoading] = React.useState(false);
   const router = useRouter();
-
-  React.useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setLoading(true);
-    }, 2500);
-
-    return () => clearTimeout(timeoutId);
-  }, []);
+  const { model } = useModel();
 
   return (
     <>
-      {!loading && router.pathname === "/" ? (
+      {!model && router.pathname === "/" ? (
         <Loading />
       ) : (
         <div
