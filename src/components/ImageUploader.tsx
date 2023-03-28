@@ -1,19 +1,15 @@
 import { useState } from "react";
 import ImageUploadInput from "./UI/ImageUploadInput";
 import ImageList from "./UI/ImageList";
-import * as tmImage from "@teachablemachine/image";
-import { config } from "@/config/config";
 import { ClassPrediction, UploadedImage } from "@/types/types";
+import { useModel } from "@/lib/ModelContext";
 
 export default function ImageUploader() {
   const [images, setImages] = useState<UploadedImage[]>([]);
-  const [model, setModel] = useState<tmImage.CustomMobileNet | null>(null);
   const [imageUploaded, setImageUploaded] = useState(false);
+  const { model } = useModel();
 
   const predictImage = async (image: UploadedImage) => {
-    const model = await tmImage.load(config.modelURL, config.metadataURL);
-    setModel(model);
-
     if (!model) return;
     const img = document.createElement("img");
     img.src = image?.url;
