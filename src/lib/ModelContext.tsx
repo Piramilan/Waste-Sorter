@@ -26,8 +26,13 @@ const ModelProvider = ({ children }: Props) => {
 
   useEffect(() => {
     const loadModel = async () => {
-      const model = await tmImage.load(config.modelURL, config.metadataURL);
-      setModel(model);
+      if (!model) {
+        const loadedModel = await tmImage.load(
+          config.modelURL,
+          config.metadataURL
+        );
+        setModel(loadedModel);
+      }
     };
     loadModel();
   }, []);

@@ -12,7 +12,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   React.useEffect(() => {
     const timeoutId = setTimeout(() => {
       setLoading(true);
-    }, 1500);
+    }, 2500);
 
     return () => clearTimeout(timeoutId);
   }, []);
@@ -23,12 +23,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <Loading />
       ) : (
         <div
-          className={`bg-primary flex flex-col min-h-screen ${
+          className={`bg-primary scroll-smooth flex flex-col min-h-screen ${
             router.pathname === "/" && "fade-in"
           }`}
         >
           <Header />
-          <main className="flex-grow my-8">{children}</main>
+          <main className="flex-grow my-8 max-w-[1600px] mx-auto">
+            {children}
+          </main>
           <Footer />
         </div>
       )}

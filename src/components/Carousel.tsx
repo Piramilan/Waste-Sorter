@@ -15,6 +15,7 @@ const options: Options = {
   pagination: false,
   arrows: true,
   width: "100%",
+  rewind: true,
 };
 
 const Carousel: React.FC<ImageListProps> = ({ images }) => {
