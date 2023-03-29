@@ -33,7 +33,7 @@ const ImageList: React.FC<ImageListProps> = ({ images }) => {
   }, [images]);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-      {isMobile && (
+      {predictionImages && predictionImages.length >= 2 && isMobile && (
         <div className="flex justify-end items-center max-w-[85vw]">
           <span className="text-slate-300 mr-4">Activate Carousel View</span>
           <ToggleButton value={carouselActivate} onClick={onCarouselActivate} />
