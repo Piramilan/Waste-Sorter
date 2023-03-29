@@ -1,8 +1,6 @@
 export const config = {
-  modelURL:
-    "https://teachablemachine.withgoogle.com/models/c_PhZgpUCc/model.json",
-  metadataURL:
-    "https://teachablemachine.withgoogle.com/models/c_PhZgpUCc/metadata.json",
+  modelURL: process.env.NEXT_PUBLIC_MODEL_URL || "",
+  metadataURL: process.env.NEXT_PUBLIC_METADATA_URL || "",
 };
 
 export const classNames = {
