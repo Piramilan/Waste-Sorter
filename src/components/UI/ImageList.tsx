@@ -3,11 +3,16 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import Carousel from "../Carousel";
 import { classNames } from "@/config/config";
+import ToggleButton from "./ToggleButton";
 
 const ImageList: React.FC<ImageListProps> = ({ images }) => {
   const [predictionImages, setPredictionImages] = useState<UploadedImage[]>([]);
-
+  const [carouselActivate, setCarouselActivate] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+
+  const onCarouselActivate = () => {
+    setCarouselActivate(!carouselActivate);
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -28,7 +33,16 @@ const ImageList: React.FC<ImageListProps> = ({ images }) => {
   }, [images]);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-      {predictionImages && predictionImages.length >= 2 && isMobile ? (
+      {isMobile && (
+        <div className="flex justify-end items-center max-w-[85vw]">
+          <span className="text-slate-300 mr-4">Activate Carousel View</span>
+          <ToggleButton value={carouselActivate} onClick={onCarouselActivate} />
+        </div>
+      )}
+      {predictionImages &&
+      predictionImages.length >= 2 &&
+      isMobile &&
+      carouselActivate ? (
         <Carousel images={predictionImages} />
       ) : (
         predictionImages?.map((image, index) => (
