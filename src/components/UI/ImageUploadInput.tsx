@@ -6,7 +6,7 @@ interface ImageUploadProps {
 
 const ImageUploadInput = ({ handleImageUpload }: ImageUploadProps) => {
   return (
-    <label className="block bg-white shadow-xl p-4 lg:px-6 rounded-full">
+    <label className="block bg-white shadow-xl p-4 lg:px-6 rounded-full max-w-[260px] md:max-w-max">
       <input
         type="file"
         accept="image/*"
