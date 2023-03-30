@@ -4,8 +4,8 @@ export default function Head() {
   return (
     <NextHead>
       <title>
-        Teachable Machine Image Classification for Waste Sorter App | Next.js
-        TailwindCSS with TypeScript
+        WasteSorter | Teachable Machine Waste Sorter App with Next.js
+        TailwindCSS and TypeScript
       </title>
       <meta
         name="description"
