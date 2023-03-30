@@ -7,12 +7,19 @@ import Loading from "@/components/UI/Loading";
 import { useModel } from "@/lib/ModelContext";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+  const [isLoading, setIsLoading] = React.useState(true);
   const router = useRouter();
   const { model } = useModel();
 
+  React.useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+  }, []);
+
   return (
     <>
-      {!model && router.pathname === "/" ? (
+      {isLoading && router.pathname === "/" ? (
         <Loading />
       ) : (
         <div

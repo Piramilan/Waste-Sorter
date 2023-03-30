@@ -59,12 +59,27 @@ export default function ImageUploader() {
         Classify Your Waste as Organic or Recyclable with Machine Learning
       </h1>
       <div>
-        <div className="flex flex-col justify-center items-center mb-12 my-10 lg:my-16">
-          <ImageUploadInput handleImageUpload={handleImageChange} />
-          <p className="text-xs text-gray-500 mt-4 text-center w-[250px] max-w-fit">
-            We do not save your images. Your privacy is important to us.
-          </p>
-        </div>
+        {!model ? (
+          <div className="text-center mx-auto flex justify-center items-center">
+            <button
+              type="button"
+              className="bg-white text-lg font-bold text-primary px-7 py-3 rounded-full flex items-center justify-center disabled"
+            >
+              <svg
+                className="animate-spin h-5 w-5 mr-3 border-b-2 border-primary rounded-full"
+                viewBox="0 0 24 24"
+              ></svg>
+              Processing...
+            </button>
+          </div>
+        ) : (
+          <div className="flex flex-col justify-center items-center mb-12 my-10 lg:my-16 fade-in">
+            <ImageUploadInput handleImageUpload={handleImageChange} />
+            <p className="text-xs text-gray-500 mt-4 text-center w-[250px] max-w-fit">
+              We do not save your images. Your privacy is important to us.
+            </p>
+          </div>
+        )}
         <div
           className={`flex justify-center items-center ${
             imageUploaded && "my-14"

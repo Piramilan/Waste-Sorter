@@ -19,7 +19,7 @@ export default function Header() {
             <span className="mx-2">Waste Sorter</span>
           </div>
         </UnstyledLink>
-        <UnstyledLink href="https://github.com/Piramilan">
+        <UnstyledLink href="https://github.com/Piramilan/Waste-Sorter">
           <FaGithubSquare className="text-4xl text-white animate-pulse" />
         </UnstyledLink>
       </div>
