@@ -26,6 +26,14 @@ cd Waste-Sorter
 npm install
 ```
 
+## Replace the Model and MetaData URLs
+
+To Replace the URLs in .env file :
+```bash
+NEXT_PUBLIC_MODEL_URL="<Put Your Model URL>"
+NEXT_PUBLIC_METADATA_URL="<Put Your MetaData URL>"
+```
+
 ## Running the Application
 
 To run the application, use the following command:
