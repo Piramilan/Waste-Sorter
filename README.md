@@ -2,6 +2,10 @@
 
 This is an application that uses machine learning to classify waste images as organic or recyclable. The application is built using Next.js, TypeScript, and Tailwind CSS, and the machine learning model was trained using Teachable Machine.
 
+![App Screenshot] (file:///home/milan/Downloads/appss.png)
+
+
+
 ## Getting Started
 
 To use the application, simply visit the website and upload an image of waste that you want to classify. The application will then show the image with a prediction of whether it is organic or recyclable.
