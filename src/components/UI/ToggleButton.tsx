@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ChangeEventHandler } from "react";
+import React from "react";
 
 interface Props {
   value: boolean;
