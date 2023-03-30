@@ -63,10 +63,10 @@ export default function ImageUploader() {
           <div className="text-center mx-auto flex justify-center items-center">
             <button
               type="button"
-              className="bg-white text-lg font-bold text-primary px-7 py-3 rounded-full flex items-center justify-center disabled"
+              className="bg-white processing-btn text-lg font-bold text-primary px-7 py-3 rounded-full flex items-center justify-center disabled"
             >
               <svg
-                className="animate-spin h-5 w-5 mr-3 border-b-2 border-primary rounded-full"
+                className="animate-spin processing-svg h-5 w-5 mr-3 border-b-2 border-primary rounded-full"
                 viewBox="0 0 24 24"
               ></svg>
               Processing...
